@@ -23,7 +23,7 @@ const SocialMediaPost = () => {
             dotSize={5}
             gap={15}
             baseColor="#1e1b4b"
-            activeColor="#4338ca"
+            activeColor="#a78bfa"
             proximity={120}
             shockRadius={250}
             shockStrength={5}

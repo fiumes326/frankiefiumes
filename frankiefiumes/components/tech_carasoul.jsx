@@ -1,9 +1,17 @@
 import '../styles/tech_carasoul.css'
-import { useState, useEffect } from 'react'
+import { useState, useRef} from 'react'
+import {motion, useTransform, useScroll} from 'framer-motion'
 
 const TechCarasoul = () => {
     const [selection, setSelection] = useState(0)
     const [isPaused, setIsPaused] = useState(false)
+    const refrence = useRef(null)
+
+    const {scrollYProgress} = useScroll({
+        target: refrence
+    })
+
+    const scrollX = useTransform(scrollYProgress, [0,1], ["1%", "-290%"])
 
     const knownTechnologies = [
         {
@@ -37,69 +45,33 @@ const TechCarasoul = () => {
         {
             name: "C++",
             path: "../src/assets/cplusplus.svg"
+        },
+        {
+            name: "Docker",
+            path: "../src/assets/docker.svg"
         }
     ]
 
-    // Auto-rotation
-    useEffect(() => {
-        if (!isPaused) {
-            const interval = setInterval(() => {
-                setSelection((prev) => (prev + 1) % knownTechnologies.length)
-            }, 3000) // Change every 3 seconds
-
-            return () => clearInterval(interval)
-        }
-    }, [isPaused, knownTechnologies.length])
-
-    // Navigation functions
-    const nextSlide = () => {
-        setSelection((prev) => (prev + 1) % knownTechnologies.length)
+    const MakeTiles = ({name, path, index}) => {
+        return(
+            <div id={index % 2 ==0 ? "tile-TopDown" : "tile-DownTop"}>
+                <h1>{name}</h1>
+                <img src={path} alt={name} />
+            </div>
+        )
     }
 
-    const prevSlide = () => {
-        setSelection((prev) => (prev - 1 + knownTechnologies.length) % knownTechnologies.length)
-    }
-
-    const goToSlide = (index) => {
-        setSelection(index)
-    }
 
     return (
-        <div
-            id="MainContainer"
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
-        >
-            <h3>Known Technologies</h3>
-            <div className="carousel-content">
-                <button className="carousel-btn prev-btn" onClick={prevSlide}>
-                    &#8249;
-                </button>
-
-                <div className="tech-display">
-                    <img
-                        src={knownTechnologies[selection].path}
-                        alt={knownTechnologies[selection].name}
-                        className="tech-logo"
-                    />
-                    <h3 className="tech-name">{knownTechnologies[selection].name}</h3>
-                </div>
-
-                <button className="carousel-btn next-btn" onClick={nextSlide}>
-                    &#8250;
-                </button>
-            </div>
-
-            <div className="carousel-dots">
-                {knownTechnologies.map((tech, index) => (
-                    <button
-                        key={index}
-                        className={`dot ${index === selection ? 'active' : ''}`}
-                        onClick={() => goToSlide(index)}
-                        aria-label={`Go to ${tech.name}`}
-                    />
-                ))}
-            </div>
+        <div ref={refrence} id="MainContainerTC">
+            <div id="TitleWrapper"><h1>My Known Techologies</h1></div>
+            <motion.div style={{x: scrollX}} id="CardContainer">
+                {knownTechnologies.map((value, index) => {
+                    return (
+                    <MakeTiles name={value.name} path={value.path} index={index} />
+                    );
+                })}
+            </motion.div>
         </div>
     );
 
