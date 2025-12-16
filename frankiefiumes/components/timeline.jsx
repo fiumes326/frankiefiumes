@@ -1,5 +1,5 @@
 import '../styles/timeline.css'
-import {motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence} from "framer-motion"
+import {motion, useScroll, useTransform, useMotionValueEvent} from "framer-motion"
 import { useRef, useState } from "react"
 
 const TimelineCard = ({ year, title, currentDate, setCurrentDate }) => {
