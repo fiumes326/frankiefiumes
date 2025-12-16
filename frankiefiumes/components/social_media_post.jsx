@@ -21,7 +21,7 @@ const SocialMediaPost = () => {
     <div id="MainContainer">
         <div id="SocialMediaPost">
             <div id="SocialMediaHeader">
-                <div id="ProfilePicture"><img src="../public/headshot.png" id="HeadShot"/></div>
+                <div id="ProfilePicture"><img src="../src/assets/headshot.png" id="HeadShot"/></div>
                 <div id="UserName">frankie_fiumefreddo</div>
             </div>
             <div id="SocialMediaPostBody">
