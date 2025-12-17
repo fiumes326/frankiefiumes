@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { use, useEffect, useRef } from "react";
 import {useTransform, useScroll, useMotionValueEvent, motion} from 'framer-motion'
 import '../styles/video_scrub.css'
 
@@ -7,7 +7,7 @@ const VideoScrub = () => {
     const VideoRef = useRef(null)
 
     const {scrollYProgress} = useScroll({
-        target: VideoContainerRef
+        target: VideoContainerRef,
     })
     
     const scrub = useTransform(scrollYProgress, [0,1], [0,1])
@@ -23,7 +23,7 @@ const VideoScrub = () => {
         <div id="VideoScrubContainer" ref={VideoContainerRef}>
             <div id="InsideContainer">
                 <video
-                src="../src/assets/scrub_video.mp4"
+                src="../src/assets/laptop_scrub.mp4"
                 muted
                 playsInline
                 preload="auto"

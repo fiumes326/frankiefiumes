@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600&display=swap');
 
 #VideoScrubContainer{
-    height: 400vh;
+    height: 500vh;
     width: 100vw;
     padding: 0;
     margin: 0;
@@ -17,6 +17,16 @@ video {
     -webkit-backface-visibility: hidden;
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
+    -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%);
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: cover;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: cover;
+
+
+    mask-image: radial-gradient(circle, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%);
 }
 
 #InsideContainer{
@@ -29,10 +39,10 @@ video {
 }
 
 #scrollContainer {
+    width: 100vw;
     display: flex;
-    position: absolute;
     bottom: 10%;
-    right: 44%;
+    position: absolute;
     color: #fff;
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 600;
@@ -40,6 +50,6 @@ video {
     letter-spacing: 0.2em;
     text-transform: uppercase;
     opacity: 0.9;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
