@@ -23,7 +23,7 @@ const VideoScrub = () => {
         <div id="VideoScrubContainer" ref={VideoContainerRef}>
             <div id="InsideContainer">
                 <video
-                src="../src/assets/laptop_scrub.mp4"
+                src="../src/assets/scrub_video.mp4"
                 muted
                 playsInline
                 preload="auto"

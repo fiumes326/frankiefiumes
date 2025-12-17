@@ -1,11 +1,16 @@
 #TimelineContainer {
     width: 100%;
     min-height: 100vh;
-    background-color: #0e1111;
     padding: 60px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    background: linear-gradient(
+        to bottom,
+        rgba(2, 2, 4, 1) 0%,
+        rgba(14, 14, 17, 1) 30%,
+        rgba(14, 14, 17, 1) 100%
+    )
 }
 
 #TimelineContainer h1 {

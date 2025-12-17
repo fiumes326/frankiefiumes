@@ -3,13 +3,30 @@
     width: 100%;
 }
 
-#CardContainer {
+#StickyDiv{
     top: 0;
     position: sticky;
     height: 100vh;
     display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    justify-content: space-between;
 }
+
+#CardContainer {
+    display: flex;
+    flex-direction: row;
+    height: 40%;
+}
+
+#CardContainer2 {
+    display: flex;
+    flex-direction: row;
+    height: 40%;
+}
+
 #TitleWrapper {
+    height: 10%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,6 +48,7 @@
     justify-content: center;
     align-items: center;
     background: linear-gradient(to top,#a78bfa, #0e1111);
+    height: 100%;
 }
 
 #tile-DownTop{
@@ -45,6 +63,7 @@
     justify-content: center;
     align-items: center;
     background: linear-gradient(to bottom, #a78bfa, #0e1111);
+    height: 100%;
 }
 
 

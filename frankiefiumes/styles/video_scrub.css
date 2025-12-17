@@ -5,6 +5,16 @@
     width: 100vw;
     padding: 0;
     margin: 0;
+    -webkit-backface-visibility: hidden;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%);
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: cover;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: cover;
 }
 
 video {

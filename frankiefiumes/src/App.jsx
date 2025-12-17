@@ -8,9 +8,9 @@ function App() {
   return (
     <div>
       <VideoScrub/>
-      <SocialMediaPost/>
       <TimeLine/>
       <TechCarasoul/>
+      <SocialMediaPost/>
     </div>
 
 

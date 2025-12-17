@@ -8,10 +8,11 @@ const TechCarasoul = () => {
     const refrence = useRef(null)
 
     const {scrollYProgress} = useScroll({
-        target: refrence
+        target: refrence,
     })
 
-    const scrollX = useTransform(scrollYProgress, [0,1], ["1%", "-290%"])
+    const scrollX = useTransform(scrollYProgress, [0,1], ["1%", "-160%"])
+    const scrollX2 = useTransform(scrollYProgress, [0,1], ["-160%", "1%"])
 
     const knownTechnologies = [
         {
@@ -38,6 +39,10 @@ const TechCarasoul = () => {
             name: "React Native",
             path: "../src/assets/reactnative.svg"
         },
+
+    ]
+
+    const knownTechnologies2 = [ 
         {
             name: "C",
             path: "../src/assets/c.svg"
@@ -46,10 +51,22 @@ const TechCarasoul = () => {
             name: "C++",
             path: "../src/assets/cplusplus.svg"
         },
+                {
+            name: "Streamlit",
+            path: "../src/assets/streamlit.svg"
+        },
         {
             name: "Docker",
             path: "../src/assets/docker.svg"
-        }
+        },
+        {
+            name: "AWS",
+            path: "../src/assets/aws.svg"
+        }, 
+        {
+            name: "Ansible",
+            path: "../src/assets/ansible.svg"
+        },
     ]
 
     const MakeTiles = ({name, path, index}) => {
@@ -61,17 +78,38 @@ const TechCarasoul = () => {
         )
     }
 
+    
+    const MakeTiles2 = ({name, path, index}) => {
+        return(
+            <div id={index % 2 ==1 ? "tile-TopDown" : "tile-DownTop"}>
+                <h1>{name}</h1>
+                <img src={path} alt={name} />
+            </div>
+        )
+    }
+
 
     return (
-        <div ref={refrence} id="MainContainerTC">
-            <div id="TitleWrapper"><h1>My Known Techologies</h1></div>
-            <motion.div style={{x: scrollX}} id="CardContainer">
-                {knownTechnologies.map((value, index) => {
-                    return (
-                    <MakeTiles name={value.name} path={value.path} index={index} key={value.name}/>
-                    );
-                })}
-            </motion.div>
+        <div id="MainContainerTC" ref={refrence}>
+            <div id="StickyDiv">
+                <div id="TitleWrapper"><h1>My Known Techologies</h1></div>
+                <motion.div style={{x: scrollX}} id="CardContainer">
+                    {knownTechnologies.map((value, index) => {
+                        return (
+                        <MakeTiles name={value.name} path={value.path} index={index} key={value.name}/>
+                        );
+                    })}
+                </motion.div>
+                <motion.div style={{x: scrollX2}} id="CardContainer2">
+                    {
+                        knownTechnologies2.map((value,index) => {
+                            return(
+                                <MakeTiles2 name={value.name} path={value.path} index={index} key={value.name}/>
+                            );
+                        })
+                    }
+                </motion.div>
+            </div>
         </div>
     );
 

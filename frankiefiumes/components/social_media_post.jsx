@@ -46,7 +46,6 @@ const SocialMediaPost = () => {
                 </div>
             </div>
         </div>
-        <div id="DownArrow">Continue Down</div>
     </div>
     </DotGrid>
     </div>
