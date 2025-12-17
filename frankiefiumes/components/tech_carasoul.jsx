@@ -68,7 +68,7 @@ const TechCarasoul = () => {
             <motion.div style={{x: scrollX}} id="CardContainer">
                 {knownTechnologies.map((value, index) => {
                     return (
-                    <MakeTiles name={value.name} path={value.path} index={index} />
+                    <MakeTiles name={value.name} path={value.path} index={index} key={value.name}/>
                     );
                 })}
             </motion.div>

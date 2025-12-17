@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600&display=swap');
+
+#VideoScrubContainer{
+    height: 400vh;
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+}
+
+video {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    image-rendering: crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+
+#InsideContainer{
+    width: 100%;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+}
+
+#scrollContainer {
+    display: flex;
+    position: absolute;
+    bottom: 10%;
+    right: 44%;
+    color: #fff;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 1.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.9;
+    justify-content: center;
+    align-items: center;
+}
