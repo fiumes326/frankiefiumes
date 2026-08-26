@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-
+import SpaceShip from './SpaceShip'
 export default class World {
     constructor() {
         this.experience = new Experience()
@@ -8,11 +8,11 @@ export default class World {
 
         this.resources.on('ready', () =>
         {
-            this.environment = new Environment()
+            this.spaceship = new SpaceShip()
         })
     }
 
     update(){
-
+        this.spaceship.update()
     }
 }

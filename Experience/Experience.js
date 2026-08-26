@@ -1,9 +1,9 @@
 import * as THREE from 'three'
 import Size from './Utils/Size'
-import Renderer from './Utils/Renderer'
-import Camera from './Utils/Camera'
+import Renderer from './Renderer'
+import Camera from './Camera'
 import Time from './Utils/Time'
-import World from './Utils/World/World'
+import World from './World/World'
 import Resource from './Utils/Resource'
 import sources from '../static/sources'
 
@@ -27,6 +27,7 @@ export default class Experience extends EventEmitter{
     }
 
     update(){
-
+        this.world.update()
+        this.renderer.update()
     }
 }
