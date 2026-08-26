@@ -1,0 +1,25 @@
+{
+  "name": "frankiefiumes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fiumes326/frankiefiumes.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/fiumes326/frankiefiumes/issues"
+  },
+  "homepage": "https://github.com/fiumes326/frankiefiumes#readme",
+  "dependencies": {
+    "three": "^0.185.1",
+    "vite": "^8.2.2"
+  }
+}
