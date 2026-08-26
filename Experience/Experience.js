@@ -3,10 +3,15 @@ import Size from './Utils/Size'
 import Renderer from './Utils/Renderer'
 import Camera from './Utils/Camera'
 import Time from './Utils/Time'
+import World from './Utils/World/World'
+import Resource from './Utils/Resource'
+import sources from '../static/sources'
+
 
 let instance = null
-export default class Experience {
+export default class Experience extends EventEmitter{
     constructor(canvas){
+        super()
         if(instance){
             return instance
         }
@@ -17,6 +22,8 @@ export default class Experience {
         this.renderer = new Renderer()
         this.camera = new Camera()
         this.time = new Time()
+        this.resource = new Resource(sources)
+        this.world = new World()
     }
 
     update(){
