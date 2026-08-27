@@ -46,8 +46,9 @@ export default class Experience extends EventEmitter{
 
     update(){
         this.world.update()
-        this.renderer.update()
+        this.camera.update()
         this.physics.update()
+        this.renderer.update()
     }
 
     resize(){

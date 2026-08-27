@@ -7,6 +7,7 @@ export default class Resource extends EventEmitter{
         super()
         this.sources = sources
         this.toLoad = this.sources.length
+        this.ready = false
         this.items = {}
 
         this.setLoaders()
@@ -64,7 +65,8 @@ export default class Resource extends EventEmitter{
         this.toLoad--
 
         if(this.toLoad === 0)
-        {
+        {   
+            this.ready = true
             this.trigger('ready')
         }
     }

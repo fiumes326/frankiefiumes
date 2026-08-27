@@ -21,4 +21,15 @@ export default class Camera {
         this.instance.aspect = this.size.width / this.size.height
         this.instance.updateProjectionMatrix()
     }
+
+    update(){
+        if (this.experience.world.spaceship) {
+            this.spaceship = this.experience.world.spaceship.mesh
+        }
+        if (!this.spaceship) return
+        this.instance.position.copy(this.spaceship.position)
+        this.instance.position.y += 5
+        this.instance.position.z += 5
+        this.instance.lookAt(this.spaceship.position)
+    }
 }

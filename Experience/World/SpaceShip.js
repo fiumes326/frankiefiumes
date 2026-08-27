@@ -12,11 +12,16 @@ export default class SpaceShip {
 
         this.isAccelerating = false
         this.isBraking = false
-
-        this.noseTilt = 0
-        this.maxNoseTilt = 0.4
-        this.pitchAxis = new THREE.Vector3(1, 0, 0)
-        this.pitchQuaternion = new THREE.Quaternion()
+        this.isTurningLeft = false
+        this.isTurningRight = false
+        this.shipPitch = 0
+        this.shipYaw = Math.PI
+        this.maxShipPitch = 0.4
+        this.idleDamping = 0.6
+        this.thrustForce = 2
+        this.pitchAxis = new CANNON.Vec3(1, 0, 0)
+        this.yawAxis = new CANNON.Vec3(0, 1, 0)
+        this.yawQuaternion = new CANNON.Quaternion()
 
         this.setMesh()
         this.setPhysics()
@@ -29,14 +34,14 @@ export default class SpaceShip {
         this.mesh.scale.set(0.10, 0.10, 0.10)
         this.geometrySize = new THREE.Box3().setFromObject(this.mesh)
         this.mesh.position.set(0, 1, 0)
-        this.mesh.rotation.y = Math.PI
+        this.mesh.rotation.y = this.shipYaw
         this.scene.add(this.mesh)
     }
 
     setFlames(){
         this.flameCount = 300
         this.flameSpeed = 1.5
-        this.flameMaxDistance = 0.6
+        this.flameMaxDistance = 1
         this.flameWidth = 2.5
         this.flameDirection = Math.sign(this.geometrySize.min.z) || -1
         this.flameProgress = new Float32Array(this.flameCount)
@@ -107,18 +112,14 @@ export default class SpaceShip {
         this.body = new CANNON.Body({
             mass: 1,
             shape: new CANNON.Box(new CANNON.Vec3(this.geometrySize.getSize(new THREE.Vector3()).x / 2, this.geometrySize.getSize(new THREE.Vector3()).y / 2, this.geometrySize.getSize(new THREE.Vector3()).z / 2)),
-            position: new CANNON.Vec3(0, 1, 0),
-            quaternion: new CANNON.Quaternion().setFromEuler(0, Math.PI, 0)
+            position: new CANNON.Vec3(0, 1, 0)
         })
         this.physics.world.addBody(this.body)
     }
 
     controls(){
-        const force = 2
-        const torque = .5
         this.experience.controls.on("forward", () => {
             this.body.wakeUp()
-            this.body.applyLocalForce(new CANNON.Vec3(0, 0, force), new CANNON.Vec3(0, 0, 0))
             this.flamesOn()
             this.isAccelerating = true
         })
@@ -130,7 +131,6 @@ export default class SpaceShip {
         })
         this.experience.controls.on("backward", () => {
             this.body.wakeUp()
-            this.body.applyLocalForce(new CANNON.Vec3(0, 0, -force), new CANNON.Vec3(0, 0, 0))
             this.isBraking = true
         })
         this.experience.controls.on("keyup", (event) => {
@@ -139,31 +139,60 @@ export default class SpaceShip {
             }
         })
         this.experience.controls.on("left", () => {
-            this.body.wakeUp()
-            this.body.torque.y += torque
+            this.isTurningLeft = true
         })
         this.experience.controls.on("right", () => {
-            this.body.wakeUp()
-            this.body.torque.y -= torque
+            this.isTurningRight = true
+        })
+        this.experience.controls.on("keyup", (event) => {
+            if(event.code === 'KeyA' || event.code === 'ArrowLeft'){
+                this.isTurningLeft = false
+            } else if(event.code === 'KeyD' || event.code === 'ArrowRight'){
+                this.isTurningRight = false
+            }
         })
 
     }
 
     pitchNoseUp(){
-        if(this.noseTilt > -this.maxNoseTilt){
-            this.noseTilt -= 0.025
+        if(this.shipPitch > -this.maxShipPitch){
+            this.shipPitch -= 0.025
         }
     }
 
     pitchNoseDown(){
-        if(this.noseTilt < this.maxNoseTilt){
-            this.noseTilt += 0.025
+        if(this.shipPitch < this.maxShipPitch){
+            this.shipPitch += 0.025
         }
     }
 
     update(){
+        const hasMovementInput = this.isAccelerating || this.isBraking || this.isTurningLeft || this.isTurningRight
+        this.body.linearDamping = hasMovementInput ? 0 : this.idleDamping
+
+        if(this.isTurningLeft){
+            this.shipYaw += this.turnSpeed * this.experience.time.delta * 0.001
+        }
+        if(this.isTurningRight){
+            this.shipYaw -= this.turnSpeed * this.experience.time.delta * 0.001
+        }
+
+        this.yawQuaternion.setFromAxisAngle(this.yawAxis, this.shipYaw)
+        this.body.quaternion.copy(this.yawQuaternion)
+
+        if(this.isAccelerating ){
+            this.body.applyLocalForce(new CANNON.Vec3(0, 0, this.thrustForce), new CANNON.Vec3(0, 0, 0))
+            if(this.body.velocity.length() > 6){
+                this.body.velocity.normalize()
+                this.body.velocity.scale(6, this.body.velocity)
+            }
+        }
+        if(this.isBraking && this.body.velocity.length() < 6){
+            this.body.applyLocalForce(new CANNON.Vec3(0, 0, -this.thrustForce), new CANNON.Vec3(0, 0, 0))
+        }
+
         this.mesh.position.copy(this.body.position)
-        this.mesh.quaternion.copy(this.body.quaternion)
+        this.mesh.rotation.set(this.shipPitch, this.shipYaw, 0)
 
         if(this.isAccelerating){
             this.updateFlames()
@@ -174,15 +203,12 @@ export default class SpaceShip {
         }
 
         if (!this.isAccelerating && !this.isBraking) {
-            if (this.noseTilt > 0) {
+            if (this.shipPitch > 0) {
                 this.pitchNoseUp()
-            } else if (this.noseTilt < 0) {
+            } else if (this.shipPitch < 0) {
                 this.pitchNoseDown()
             }
         }
-
-        this.pitchQuaternion.setFromAxisAngle(this.pitchAxis, this.noseTilt)
-        this.mesh.quaternion.multiply(this.pitchQuaternion)
 
     }
 
