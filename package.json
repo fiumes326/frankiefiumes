@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/fiumes326/frankiefiumes#readme",
   "dependencies": {
+    "cannon": "^0.6.2",
     "three": "^0.185.1",
     "vite": "^8.2.2"
   }

@@ -18,6 +18,6 @@ export default class World {
     }
 
     update(){
-        this.spaceship?.update()
+        this?.spaceship?.update()
     }
 }

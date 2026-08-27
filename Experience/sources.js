@@ -2,11 +2,11 @@ export default [
     {
         name: 'spaceship',
         type: 'gltfModel',
-        path: 'gltf/Executioner.gltf'
+        path: '/gltf/Executioner.gltf'
     },
     {
         name: 'starsAlphaMap',
         type: 'texture',
-        path: 'textures/stars.png'
+        path: '/textures/stars.png'
     }
 ]

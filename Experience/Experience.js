@@ -7,7 +7,10 @@ import World from './World/World'
 import EventEmitter from './Utils/EventEmitter'
 import Resource from './Utils/Resource'
 import sources from './sources.js'
-
+import Physics from './Physics'
+import Controls from './Utils/Controls'
+import Cursor from './Utils/Cursor'
+import RayCaster from './Utils/RayCaster'
 
 let instance = null
 export default class Experience extends EventEmitter{
@@ -18,13 +21,17 @@ export default class Experience extends EventEmitter{
         }
         instance = this
         this.canvas = canvas
+        this.cursor = new Cursor()
         this.scene = new THREE.Scene()
         this.resource = new Resource(sources)
         this.size = new Size()
+        this.controls = new Controls()
         this.camera = new Camera()
         this.renderer = new Renderer()
         this.world = new World()
         this.time = new Time()
+        this.physics = new Physics()
+        this.RayCaster = new RayCaster()
 
         this.size.on('resize', () =>
         {
@@ -40,6 +47,7 @@ export default class Experience extends EventEmitter{
     update(){
         this.world.update()
         this.renderer.update()
+        this.physics.update()
     }
 
     resize(){
