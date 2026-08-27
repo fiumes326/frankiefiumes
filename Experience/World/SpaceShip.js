@@ -13,7 +13,8 @@ export default class SpaceShip {
 
     setMesh(){
         this.mesh = this.resource.items.spaceship.scene
-        this.mesh.scale.set(0.15, 0.15, 0.15)
+        this.mesh.scale.set(0.10, 0.10, 0.10)
+        this.mesh.position.set(0, 1, 0)
         this.mesh.rotation.y = Math.PI
         this.scene.add(this.mesh)
     }

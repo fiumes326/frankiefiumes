@@ -13,7 +13,7 @@ export default class World {
             console.log('resources ready')
             this.spaceship = new SpaceShip()
             this.stars = new Stars() 
-            this.scene.add(new THREE.AmbientLight(0xffffff, 8))
+            this.scene.add(new THREE.AmbientLight(0xffffff, .75))
          })
     }
 

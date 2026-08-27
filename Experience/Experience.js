@@ -6,7 +6,7 @@ import Time from './Utils/Time'
 import World from './World/World'
 import EventEmitter from './Utils/EventEmitter'
 import Resource from './Utils/Resource'
-import sources from '../static/sources.js'
+import sources from './sources.js'
 
 
 let instance = null
