@@ -1,6 +1,9 @@
 import Experience from "../Experience"
-export default class Size {
+import EventEmitter from "./EventEmitter"
+
+export default class Size extends EventEmitter {
     constructor(){
+        super()
         this.width = window.innerWidth
         this.height = window.innerHeight
         this.pixelRatio = Math.min(window.devicePixelRatio, 2)
@@ -8,13 +11,15 @@ export default class Size {
         this.renderer = this.experience.renderer
         this.camera = this.experience.camera
 
-        this.setEventListener
+        this.setEventListener()
     }
 
     setEventListener() {
         window.addEventListener('resize', () => {
-            this.camera.resize()
-            this.renderer.resize()
+            this.width = window.innerWidth
+            this.height = window.innerHeight
+            this.pixelRatio = Math.min(window.devicePixelRatio, 2)
+            this.trigger('resize')
         })
     }
 }

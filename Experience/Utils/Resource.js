@@ -3,10 +3,14 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import EventEmitter from './EventEmitter'
 
 export default class Resource extends EventEmitter{
-    constructor(sourses){
+    constructor(sources){
         super()
         this.sources = sources
-        this.toLoad = this.sources.lenght
+        this.toLoad = this.sources.length
+        this.items = {}
+
+        this.setLoaders()
+        this.load()
     }
 
     setLoaders(){
@@ -20,21 +24,33 @@ export default class Resource extends EventEmitter{
         {
             if(source.type === 'gltfModel')
             {
-                this.loaders.gltfLoader.load(
-                    source.path,
-                    (file) =>
-                    {
-                        sourceLoaded(source, file)
-                    }
-                )
+                try {
+                    this.loaders.gltfLoader.load(
+                        source.path,
+                        (file) =>
+                        {
+                            this.sourceLoaded(source, file)
+                            console.log('loaded', source.name)
+                        },
+                        undefined,
+                        (error) => {
+                            console.error('Error loading', source.name, error)
+                        }
+                    )
+                } catch (error) {
+                    console.error('Error loading', source.name, error)
+                }
             }
             else if(source.type === 'texture')
             {
                 this.loaders.textureLoader.load(
                     source.path,
-                    (file) =>
-                    {
-                        sourceLoaded(source, file)
+                    (file) => {
+                        this.sourceLoaded(source, file)
+                    },
+                    undefined,
+                    (error) => {
+                        console.error('Error loading', source.name, error)
                     }
                 )
             }
@@ -47,7 +63,7 @@ export default class Resource extends EventEmitter{
 
         this.toLoad--
 
-        if(this.loaded === 0)
+        if(this.toLoad === 0)
         {
             this.trigger('ready')
         }

@@ -1,9 +1,11 @@
 import Experience from "../Experience"
+import EventEmitter from "./EventEmitter"
 
-export default class Time {
+export default class Time extends EventEmitter {
     #experience
 
     constructor(){
+        super()
         this.start = Date.now()
         this.current = this.start
         this.elapsed = 0
@@ -20,10 +22,13 @@ export default class Time {
         this.delta = currentTime - this.current
         this.current = currentTime
         this.elapsed = this.current - this.start
+
+        this.trigger('tick')
+
         window.requestAnimationFrame(() =>
         {
             this.tick()
-            this.#experience.update()
         })
+
     }
 }
