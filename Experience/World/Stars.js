@@ -18,9 +18,9 @@ export default class Stars {
             if (i % 3 === 0) {
                 positions[i] = (Math.random() - 0.5) * 20 //stars from -10 to 10 x
             } else if (i % 3 === 1) {
-                positions[i] = (Math.random() - 0.5) * 20 //stars from -10 to 10 y 
+                positions[i] = (Math.random() - 1) * 10 //stars from -10 to 0 y
             } else {
-                positions[i] = (Math.random() - 1) * 10 //stars from -10 to 0 z
+                positions[i] = (Math.random() - .5) * 20 //stars from -10 to 10 z
             }
         }
         geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))

@@ -11,6 +11,7 @@ import Physics from './Physics'
 import Controls from './Utils/Controls'
 import Cursor from './Utils/Cursor'
 import RayCaster from './Utils/RayCaster'
+import HUD from './HUD.js'
 
 let instance = null
 export default class Experience extends EventEmitter{
@@ -20,10 +21,12 @@ export default class Experience extends EventEmitter{
             return instance
         }
         instance = this
+
         this.canvas = canvas
         this.cursor = new Cursor()
         this.scene = new THREE.Scene()
         this.resource = new Resource(sources)
+        this.hud = new HUD()
         this.size = new Size()
         this.controls = new Controls()
         this.camera = new Camera()

@@ -8,6 +8,7 @@ html,
 body
 {
     overflow: hidden;
+    background-color: black;
 }
 
 #webgl
@@ -17,3 +18,69 @@ body
     left: 0;
     outline: none;
 }
+
+#loading {
+    background: black;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    color: white;
+    z-index: 50;
+
+}
+
+#loading h2{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%)
+}
+
+#startButton{
+    overflow: hidden;
+    position: absolute;
+    left: 50%;
+    top: 75%;
+    transform: translateX(-50%) translateY(-50%); 
+    height: 5%;
+    width: 50%;
+    border-radius: 40px;
+    border: none;
+    transition: all 1s;
+    background: linear-gradient( 135deg,#050816 0%,#111c3d 45%,#247ba0 100%);
+    color: white;
+    box-shadow: -5px 0 5px;
+}
+
+#startButton:hover {
+    cursor: pointer;
+}
+
+#startButton::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: 100%;
+    width: 28%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.75);
+    box-shadow: 0 0 18px rgba(130, 220, 255, 0.9);
+    transform: skewX(-20deg);
+    pointer-events: none;
+}
+
+#startButton:hover::before {
+    animation: beam-sweep 0.7s ease-out;
+}
+
+@keyframes beam-sweep {
+    from {
+        left: 100%;
+    }
+    to {
+        left: -30%;
+    }
+}
+

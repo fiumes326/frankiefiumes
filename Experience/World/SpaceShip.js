@@ -14,14 +14,18 @@ export default class SpaceShip {
         this.isBraking = false
         this.isTurningLeft = false
         this.isTurningRight = false
+        this.turnSpeed = 1.5
         this.shipPitch = 0
+        this.shipRoll = 0
         this.shipYaw = Math.PI
         this.maxShipPitch = 0.4
+        this.maxShipRoll = 0.4
         this.idleDamping = 0.6
         this.thrustForce = 2
         this.pitchAxis = new CANNON.Vec3(1, 0, 0)
         this.yawAxis = new CANNON.Vec3(0, 1, 0)
         this.yawQuaternion = new CANNON.Quaternion()
+        this.localVelocity = new CANNON.Vec3()
 
         this.setMesh()
         this.setPhysics()
@@ -154,15 +158,35 @@ export default class SpaceShip {
 
     }
 
-    pitchNoseUp(){
+    turnShipLeft(){
+        this.shipYaw += this.turnSpeed * this.experience.time.delta * 0.001
+    }
+
+    turnShipRight(){
+        this.shipYaw -= this.turnSpeed * this.experience.time.delta * 0.001
+    }
+
+    pitchShipUp(){
         if(this.shipPitch > -this.maxShipPitch){
             this.shipPitch -= 0.025
         }
     }
 
-    pitchNoseDown(){
+    pitchShipDown(){
         if(this.shipPitch < this.maxShipPitch){
             this.shipPitch += 0.025
+        }
+    }
+
+    rollShipLeft(){
+        if(this.shipRoll > -this.maxShipRoll){
+            this.shipRoll -= 0.025
+        }
+    }
+
+    rollShipRight(){
+        if(this.shipRoll < this.maxShipRoll){
+            this.shipRoll += 0.025
         }
     }
 
@@ -171,10 +195,12 @@ export default class SpaceShip {
         this.body.linearDamping = hasMovementInput ? 0 : this.idleDamping
 
         if(this.isTurningLeft){
-            this.shipYaw += this.turnSpeed * this.experience.time.delta * 0.001
+            this.turnShipLeft()
+            this.rollShipLeft()
         }
         if(this.isTurningRight){
-            this.shipYaw -= this.turnSpeed * this.experience.time.delta * 0.001
+            this.turnShipRight()
+            this.rollShipRight()
         }
 
         this.yawQuaternion.setFromAxisAngle(this.yawAxis, this.shipYaw)
@@ -187,29 +213,37 @@ export default class SpaceShip {
                 this.body.velocity.scale(6, this.body.velocity)
             }
         }
-        if(this.isBraking && this.body.velocity.length() < 6){
+        this.body.vectorToLocalFrame(this.body.velocity, this.localVelocity)
+        if(this.isBraking && this.localVelocity.z > 0){
             this.body.applyLocalForce(new CANNON.Vec3(0, 0, -this.thrustForce), new CANNON.Vec3(0, 0, 0))
         }
 
         this.mesh.position.copy(this.body.position)
-        this.mesh.rotation.set(this.shipPitch, this.shipYaw, 0)
+        this.mesh.rotation.set(this.shipPitch, this.shipYaw, this.shipRoll)
 
         if(this.isAccelerating){
             this.updateFlames()
-            this.pitchNoseUp()
+            this.pitchShipUp()
         }
         if(this.isBraking){
-            this.pitchNoseDown()
+            this.pitchShipDown()
         }
 
         if (!this.isAccelerating && !this.isBraking) {
             if (this.shipPitch > 0) {
-                this.pitchNoseUp()
+                this.pitchShipUp()
             } else if (this.shipPitch < 0) {
-                this.pitchNoseDown()
+                this.pitchShipDown()
             }
         }
 
+        if (!this.isTurningLeft && !this.isTurningRight) {
+            if (this.shipRoll > 0) {
+                this.rollShipLeft()
+            } else if (this.shipRoll < 0) {
+                this.rollShipRight()
+            }
+        }
     }
 
 }

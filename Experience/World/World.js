@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import SpaceShip from './SpaceShip'
 import Experience from '../Experience'
 import Stars from './Stars'
+import Earth from './Earth'
 
 export default class World {
     constructor() {
@@ -10,14 +11,19 @@ export default class World {
         this.resource = this.experience.resource
 
         this.resource.on('ready', () => {
-            console.log('resources ready')
             this.spaceship = new SpaceShip()
             this.stars = new Stars() 
-            this.scene.add(new THREE.AmbientLight(0xffffff, .75))
+            this.earth = new Earth()
+            this.scene.add(new THREE.AmbientLight(0x1c2d4a, 0.15))
+            this.sunLight = new THREE.DirectionalLight(0xfff1cf, 3)
+            this.sunLight.position.set(10, 12, 8)
+            this.sunLight.target.position.set(0, 0, 0)
+            this.scene.add(this.sunLight, this.sunLight.target)
          })
     }
 
     update(){
         this?.spaceship?.update()
+        this?.earth?.update()
     }
 }
