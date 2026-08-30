@@ -29,7 +29,7 @@ export default class Moon {
         //add orbit around earth next radius 5 and make orbit around y axis at origin (0,0,0)
         this.moonGroup.position.x = Math.cos(this.orbitAngle) * 5
         this.moonGroup.position.z = Math.sin(this.orbitAngle) * 5
-        this.orbitAngle -= .001
+        this.orbitAngle -= .005
         this.moonGroup.rotation.y = this.rotationAngle
         this.rotationAngle += .01
     }

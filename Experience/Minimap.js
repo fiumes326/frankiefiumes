@@ -7,6 +7,9 @@ export default class Minimap {
         this.experience = new Experience()
         this.scene = this.experience.scene
         this.minimap = document.getElementById("minimap")
+        this.expandMiniMap = document.getElementById("expandMiniMap")
+        this.expandIcon = document.getElementById("expandIcon")
+        this.expanded = false
         this.mapSize = 20
         this.width = this.minimap.clientWidth
         this.height = this.minimap.clientHeight
@@ -31,6 +34,44 @@ export default class Minimap {
         })
         this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
         this.renderer.setSize(this.width, this.height, false)
+
+        this.setExpandEventListener()
+    }
+
+    setExpandEventListener(){
+        this.expandMiniMap.addEventListener("click", ()=>{
+            if (this.expanded == false) {
+                this.mapSize = 100
+                this.camera.left = -50
+                this.camera.right = 50
+                this.camera.top = 50
+                this.camera.bottom = -50
+                this.camera.updateProjectionMatrix()
+                this.expanded = true
+                this.minimap.classList.add('expanded')
+                this.expandMiniMap.classList.add('expanded')
+                this.width = this.minimap.clientWidth
+                this.height = this.minimap.clientHeight
+                this.renderer.setSize(this.width, this.height, false)
+                this.expandIcon.src = '/icons/shrink.svg'
+            }
+
+            else {
+                this.mapSize = 20
+                this.camera.left = -10
+                this.camera.right = 10
+                this.camera.top = 10
+                this.camera.bottom = -10
+                this.camera.updateProjectionMatrix()
+                this.expanded = false
+                this.minimap.classList.remove('expanded')
+                this.expandMiniMap.classList.remove('expanded')
+                this.width = this.minimap.clientWidth
+                this.height = this.minimap.clientHeight
+                this.renderer.setSize(this.width, this.height, false)
+                this.expandIcon.src = '/icons/expand.png' 
+            }
+        })
     }
 
     update(){
