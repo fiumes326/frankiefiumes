@@ -29,17 +29,37 @@ export default class SpaceShip {
 
         this.setMesh()
         this.setPhysics()
+        this.setMiniMapMesh()
         this.setFlames()
         this.controls()
     }
 
     setMesh(){
-        this.mesh = this.resource.items.spaceship.scene
+        this.mesh = this.resource.items.spaceship.scene.children[0]
+        this.mesh.rotation.order = 'YXZ'
         this.mesh.scale.set(0.10, 0.10, 0.10)
         this.geometrySize = new THREE.Box3().setFromObject(this.mesh)
         this.mesh.position.set(0, 1, 0)
         this.mesh.rotation.y = this.shipYaw
+        this.mesh.traverse((object) => object.layers.enable(1))
         this.scene.add(this.mesh)
+    }
+
+    setMiniMapMesh(){
+        const shape = new THREE.Shape()
+        shape.moveTo(0, 0.55)
+        shape.lineTo(-0.35, -0.35)
+        shape.lineTo(0.35, -0.35)
+        shape.closePath()
+
+        this.miniMapMesh = new THREE.Mesh(
+            new THREE.ShapeGeometry(shape),
+            new THREE.MeshBasicMaterial({ color: 0x64e9ff, side: THREE.DoubleSide })
+        )
+        this.miniMapMesh.rotation.order = 'YXZ'
+        this.miniMapMesh.rotation.x = Math.PI / 2
+        this.miniMapMesh.layers.set(1)
+        this.scene.add(this.miniMapMesh)
     }
 
     setFlames(){
@@ -220,6 +240,9 @@ export default class SpaceShip {
 
         this.mesh.position.copy(this.body.position)
         this.mesh.rotation.set(this.shipPitch, this.shipYaw, this.shipRoll)
+        this.miniMapMesh.position.copy(this.body.position)
+        this.miniMapMesh.position.y += 0.2
+        this.miniMapMesh.rotation.y = this.shipYaw
 
         if(this.isAccelerating){
             this.updateFlames()

@@ -12,6 +12,7 @@ import Controls from './Utils/Controls'
 import Cursor from './Utils/Cursor'
 import RayCaster from './Utils/RayCaster'
 import HUD from './HUD.js'
+import Minimap from './Minimap.js'
 
 let instance = null
 export default class Experience extends EventEmitter{
@@ -35,6 +36,7 @@ export default class Experience extends EventEmitter{
         this.time = new Time()
         this.physics = new Physics()
         this.RayCaster = new RayCaster()
+        this.minimap = new Minimap()
 
         this.size.on('resize', () =>
         {
@@ -52,6 +54,7 @@ export default class Experience extends EventEmitter{
         this.camera.update()
         this.physics.update()
         this.renderer.update()
+        this.minimap.update()
     }
 
     resize(){

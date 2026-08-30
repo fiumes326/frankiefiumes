@@ -16,11 +16,11 @@ export default class Stars {
 
         for(let i = 0; i < count * 3; i++){
             if (i % 3 === 0) {
-                positions[i] = (Math.random() - 0.5) * 20 //stars from -10 to 10 x
+                positions[i] = (Math.random() - 0.5) * 100 //stars from -50 to 50 x
             } else if (i % 3 === 1) {
                 positions[i] = (Math.random() - 1) * 10 //stars from -10 to 0 y
             } else {
-                positions[i] = (Math.random() - .5) * 20 //stars from -10 to 10 z
+                positions[i] = (Math.random() - .5) * 100 //stars from -50 to 50 z
             }
         }
         geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))

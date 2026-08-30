@@ -1,4 +1,5 @@
 import Experience from "./Experience";
+import Minimap from "./Minimap";
 import EventEmitter from "./Utils/EventEmitter";
 
 export default class HUD {
@@ -20,6 +21,10 @@ export default class HUD {
 
     }
 
+    removeLoading() {
+        this.loading.remove()
+    }
+
     showStartButton(){
         this.startButton = document.createElement("button")
         this.startButton.id="startButton"
@@ -28,10 +33,11 @@ export default class HUD {
         this.loading.appendChild(this.startButton)
     }
 
-
-    removeLoading() {
-        this.loading.remove()
+    showMiniMap(){
+        this.minimap = new Minimap()
+        
     }
+
 
     update(){
 

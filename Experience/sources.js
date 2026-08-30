@@ -13,5 +13,10 @@ export default [
         name: 'earth',
         type: 'gltfModel',
         path: '/gltf/Earth/scene.gltf'
+    },
+    {
+        name: 'moon',
+        type: 'gltfModel',
+        path: '/gltf/Moon/scene.gltf'
     }
 ]
