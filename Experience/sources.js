@@ -18,5 +18,10 @@ export default [
         name: 'moon',
         type: 'gltfModel',
         path: '/gltf/Moon/scene.gltf'
+    },
+    {
+        name: 'linkedin',
+        type: 'gltfModel',
+        path: '/gltf/Linkedin/scene.gltf'
     }
 ]

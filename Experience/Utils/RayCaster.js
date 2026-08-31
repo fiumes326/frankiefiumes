@@ -17,11 +17,9 @@ export default class RayCaster extends EventEmitter{
     }
 
     update() {
-        this.cast = this.raycaster.setFromCamera(this.cursor, this.experience.camera.instance)
-        if (this.cast) {
-            this.trigger('cast', this.cast)
-        }
-        
+        this.raycaster.setFromCamera(this.cursor, this.experience.camera.instance)
+        this.intersects = this.raycaster.intersectObjects(this.experience.scene.children, true)
+        this.trigger('cast', this.intersects)
     }
 
 }

@@ -35,7 +35,7 @@ export default class Experience extends EventEmitter{
         this.world = new World()
         this.time = new Time()
         this.physics = new Physics()
-        this.RayCaster = new RayCaster()
+        this.raycaster = new RayCaster()
         this.minimap = new Minimap()
 
         this.size.on('resize', () =>
@@ -55,6 +55,7 @@ export default class Experience extends EventEmitter{
         this.physics.update()
         this.renderer.update()
         this.minimap.update()
+        this.raycaster.update()
     }
 
     resize(){

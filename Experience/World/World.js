@@ -4,6 +4,7 @@ import Experience from '../Experience'
 import Stars from './Stars'
 import Earth from './Earth'
 import Moon from './Moon'
+import Linkedin from './Linkedin'
 
 export default class World {
     constructor() {
@@ -18,6 +19,7 @@ export default class World {
             this.stars = new Stars() 
             this.earth = new Earth()
             this.moon = new Moon()
+            this.linkedin = new Linkedin()
             this.scene.add(new THREE.AmbientLight(0x1c2d4a, 0.15))
             this.sunLight = new THREE.DirectionalLight(0xfff1cf, 3)
             this.sunLight.position.set(10, 12, 8)
@@ -30,5 +32,6 @@ export default class World {
         this?.spaceship?.update()
         this?.earth?.update()
         this?.moon?.update()
+        this?.linkedin?.update()
     }
 }
