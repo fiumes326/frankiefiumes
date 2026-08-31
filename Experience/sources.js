@@ -23,5 +23,11 @@ export default [
         name: 'linkedin',
         type: 'gltfModel',
         path: '/gltf/Linkedin/scene.gltf'
+    },
+    {
+        name: "instagram",
+        type: 'gltfModel',
+        path: '/gltf/Instagram/scene.gltf'
+
     }
 ]

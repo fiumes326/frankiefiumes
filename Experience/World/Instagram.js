@@ -1,7 +1,8 @@
 import Experience from "../Experience";
 import * as THREE from 'three'
 
-export default class Linkedin{
+
+export default class Instagram{
     constructor(){
         this.experience = new Experience()
         this.resource = this.experience.resource
@@ -24,16 +25,17 @@ export default class Linkedin{
     }
 
     setMesh(){
-        this.linkedin = new THREE.Group()
-        this.mesh = this.resource.items.linkedin.scene
+        this.instagram = new THREE.Group()
+        this.mesh = this.resource.items.instagram.scene
         this.bounds = new THREE.Box3().setFromObject(this.mesh)
         this.center = this.bounds.getCenter(new THREE.Vector3())
         this.mesh.position.sub(this.center)
-        this.linkedin.add(this.mesh)
-        this.linkedin.position.set(-5, -5, -10) 
-        this.linkedin.scale.set(1.5, 1.5, 1.5)
-        this.linkedin.rotation.x = -Math.PI / 4
-        this.scene.add(this.linkedin)
+        this.instagram.add(this.mesh)
+        this.instagram.position.set(0, -5, -10) 
+        this.instagram.scale.set(1.5, 1.5, 1.5)
+        this.instagram.rotation.y = -Math.PI / 2
+        this.instagram.rotation.x = -Math.PI / 4
+        this.scene.add(this.instagram)
     }
 
     setRayCastListener(){
@@ -41,7 +43,7 @@ export default class Linkedin{
             this.isHovering = intersects.some((intersect) => {
                 let object = intersect.object
                 while (object) {
-                    if (object === this.linkedin) return true
+                    if (object === this.instagram) return true
                     object = object.parent
                 }
                 return false
@@ -51,7 +53,7 @@ export default class Linkedin{
 
     onHover(){
         if (!this.toolTipOpen){
-            this.cursor.showToolTip("Click to go to Linkedin")
+            this.cursor.showToolTip("Click to go to Instagram")
             this.toolTipOpen = true
         }
     }
