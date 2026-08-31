@@ -142,6 +142,25 @@ body
     animation: beam-sweep 0.7s ease-out;
 }
 
+#toolTip {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, calc(-100% - 12px));
+    padding: 6px 12px;
+    border: 1px solid rgba(180, 220, 255, 0.85);
+    border-radius: 4px;
+    background: rgba(5, 8, 22, 0.85);
+    box-shadow: 0 0 12px rgba(80, 170, 255, 0.35);
+    color: white;
+    font-family: sans-serif;
+    font-size: 14px;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 30;
+}
+
 @keyframes beam-sweep {
     from {
         left: 100%;

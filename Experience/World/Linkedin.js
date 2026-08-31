@@ -5,11 +5,22 @@ export default class Linkedin{
     constructor(){
         this.experience = new Experience()
         this.resource = this.experience.resource
+        this.cursor = this.experience.cursor
         this.scene = this.experience.scene
         this.isHovering = false
+        this.toolTipOpen = false
 
         this.setMesh()
         this.setRayCastListener()
+        this.setClickListener()
+    }
+
+    setClickListener(){
+        this.cursor.on('click', () => {
+            if (this.isHovering) {
+                window.open('https://www.linkedin.com/in/frank-fiumefreddo-56549a34b/', '_blank', 'noopener,noreferrer')
+            }
+        })
     }
 
     setMesh(){
@@ -39,12 +50,21 @@ export default class Linkedin{
     }
 
     onHover(){
-        console.log("Hovering on linkin")
+        if (!this.toolTipOpen){
+            this.cursor.showToolTip("Click to go to Linkedin")
+            this.toolTipOpen = true
+        }
     }
 
     update(){
         if (this.isHovering) {
             this.onHover()
+        }
+        else{
+            if(this.toolTipOpen){
+                this.cursor.removeToolTip()
+                this.toolTipOpen = false
+            }
         }
     }
 }
