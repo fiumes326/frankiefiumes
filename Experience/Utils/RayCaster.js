@@ -13,7 +13,6 @@ export default class RayCaster extends EventEmitter{
 
     setRayCaster(){
         this.raycaster = new THREE.Raycaster()
-        this.raycaster.far = 1
     }
 
     update() {
