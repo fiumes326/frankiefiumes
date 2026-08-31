@@ -138,7 +138,8 @@ export default class SpaceShip {
         this.body = new CANNON.Body({
             mass: 1,
             shape: new CANNON.Box(new CANNON.Vec3(this.geometrySize.getSize(new THREE.Vector3()).x / 2, this.geometrySize.getSize(new THREE.Vector3()).y / 2, this.geometrySize.getSize(new THREE.Vector3()).z / 2)),
-            position: new CANNON.Vec3(0, 1, 0)
+            position: new CANNON.Vec3(0, 1, 0),
+            material: this.physics.materials.ship
         })
         this.physics.world.addBody(this.body)
     }
@@ -237,7 +238,7 @@ export default class SpaceShip {
         }
         this.body.vectorToLocalFrame(this.body.velocity, this.localVelocity)
         if(this.isBraking && this.body.velocity.length() > 0.01){
-            this.body.velocity.copy(this.brakingForce)
+            this.brakingForce.copy(this.body.velocity)
             this.brakingForce.normalize()
             this.brakingForce.scale(-this.thrustForce, this.brakingForce)
             this.body.applyForce(this.brakingForce, this.centerOfMass)

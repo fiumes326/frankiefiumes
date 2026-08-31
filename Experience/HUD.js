@@ -2,8 +2,9 @@ import Experience from "./Experience";
 import Minimap from "./Minimap";
 import EventEmitter from "./Utils/EventEmitter";
 
-export default class HUD {
+export default class HUD extends EventEmitter{
     constructor(){
+        super()
         this.experience = new Experience()
         this.loading = document.getElementById("loading")
 
@@ -29,7 +30,10 @@ export default class HUD {
         this.loadingHeader.innerText = "Ready!"
         this.startButton.id="startButton"
         this.startButton.innerText = "Start"
-        this.startButton.addEventListener("click", () =>this.removeLoading())
+        this.startButton.addEventListener("click", () =>{
+            this.trigger("start")
+            this.removeLoading()
+        })
         this.loading.appendChild(this.startButton)
     }
 
