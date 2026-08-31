@@ -6,7 +6,6 @@ export default class HUD {
     constructor(){
         this.experience = new Experience()
         this.loading = document.getElementById("loading")
-        this.minimap = document.getElementById("minimap")
 
         this.showLoader()
         
@@ -27,15 +26,11 @@ export default class HUD {
 
     showStartButton(){
         this.startButton = document.createElement("button")
+        this.loadingHeader.innerText = "Ready!"
         this.startButton.id="startButton"
         this.startButton.innerText = "Start"
         this.startButton.addEventListener("click", () =>this.removeLoading())
         this.loading.appendChild(this.startButton)
-    }
-
-    showMiniMap(){
-        this.minimap = new Minimap()
-        
     }
 
 

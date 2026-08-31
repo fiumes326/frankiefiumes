@@ -27,7 +27,8 @@ export default class Earth {
 
     setMiniMapText(){
         this.miniMapText.text = "EARTH"
-        this.miniMapText.position.set(0, 0, 3)
+        this.miniMapText.font = '/fonts/SterionItalic-R99PA.ttf'
+        this.miniMapText.position.set(0, 0, 4)
         this.miniMapText.rotation.x = -Math.PI / 2
         this.miniMapText.anchorX = 'center'
         this.miniMapText.anchorY = 'middle'
@@ -37,6 +38,14 @@ export default class Earth {
         this.miniMapText.fontSize = 2
         this.miniMapText.layers.set(1)
         this.scene.add(this.miniMapText)
+    }
+
+    shrinkMiniMapText(){
+        this.miniMapText.fontSize = 2
+    }
+
+    enlargeMiniMapText(){
+        this.miniMapText.fontSize = 10
     }
 
     update(){

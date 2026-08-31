@@ -26,6 +26,8 @@ export default class SpaceShip {
         this.yawAxis = new CANNON.Vec3(0, 1, 0)
         this.yawQuaternion = new CANNON.Quaternion()
         this.localVelocity = new CANNON.Vec3()
+        this.brakingForce = new CANNON.Vec3()
+        this.centerOfMass = new CANNON.Vec3()
 
         this.setMesh()
         this.setPhysics()
@@ -234,8 +236,11 @@ export default class SpaceShip {
             }
         }
         this.body.vectorToLocalFrame(this.body.velocity, this.localVelocity)
-        if(this.isBraking && this.localVelocity.z > 0){
-            this.body.applyLocalForce(new CANNON.Vec3(0, 0, -this.thrustForce), new CANNON.Vec3(0, 0, 0))
+        if(this.isBraking && this.body.velocity.length() > 0.01){
+            this.body.velocity.copy(this.brakingForce)
+            this.brakingForce.normalize()
+            this.brakingForce.scale(-this.thrustForce, this.brakingForce)
+            this.body.applyForce(this.brakingForce, this.centerOfMass)
         }
 
         this.mesh.position.copy(this.body.position)
