@@ -22,6 +22,7 @@ export default class SpaceShip {
         this.maxShipRoll = 0.4
         this.idleDamping = 0.6
         this.thrustForce = 2
+        this.flightHeight = 1
         this.pitchAxis = new CANNON.Vec3(1, 0, 0)
         this.yawAxis = new CANNON.Vec3(0, 1, 0)
         this.yawQuaternion = new CANNON.Quaternion()
@@ -138,10 +139,14 @@ export default class SpaceShip {
         this.body = new CANNON.Body({
             mass: 1,
             shape: new CANNON.Box(new CANNON.Vec3(this.geometrySize.getSize(new THREE.Vector3()).x / 2, this.geometrySize.getSize(new THREE.Vector3()).y / 2, this.geometrySize.getSize(new THREE.Vector3()).z / 2)),
-            position: new CANNON.Vec3(0, 1, 0),
+            position: new CANNON.Vec3(0, this.flightHeight, 0),
             material: this.physics.materials.ship
         })
         this.physics.world.addBody(this.body)
+        this.physics.world.addEventListener('postStep', () => {
+            this.body.position.y = this.flightHeight
+            this.body.velocity.y = 0
+        })
     }
 
     controls(){

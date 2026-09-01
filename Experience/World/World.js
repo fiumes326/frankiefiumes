@@ -6,6 +6,7 @@ import Earth from './Earth'
 import Moon from './Moon'
 import Linkedin from './Linkedin'
 import Instagram from './Instagram'
+import Lasers from './Lasers'
 
 export default class World {
     constructor() {
@@ -17,6 +18,7 @@ export default class World {
     
         this.resource.on('ready', () => {
             this.spaceship = new SpaceShip()
+            this.lasers = new Lasers()
             this.stars = new Stars() 
             this.earth = new Earth()
             this.moon = new Moon()
@@ -32,6 +34,7 @@ export default class World {
 
     update(){
         this?.spaceship?.update()
+        this?.lasers?.update()
         this?.earth?.update()
         this?.moon?.update()
         this?.linkedin?.update()

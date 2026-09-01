@@ -36,7 +36,7 @@ export default class Linkedin{
         this.center = this.bounds.getCenter(new THREE.Vector3())
         this.mesh.position.sub(this.center)
         this.linkedin.add(this.mesh)
-        this.linkedin.position.set(-5, 0, -10) 
+        this.linkedin.position.set(-5, 1, -10) 
         this.linkedin.scale.set(1.5, 1.5, 1.5)
         this.linkedin.rotation.x = -Math.PI / 4
         this.scene.add(this.linkedin)
@@ -44,13 +44,23 @@ export default class Linkedin{
 
     setPhysics(){
         this.size = this.bounds.getSize(new THREE.Vector3()).multiplyScalar(1.5)
+        this.fixedY = this.linkedin.position.y
         this.body = new CANNON.Body({
             mass: 1,
             shape: new CANNON.Box(new CANNON.Vec3(this.size.x / 2, this.size.y / 2, this.size.z / 2)),
             position: new CANNON.Vec3(...this.linkedin.position),
+            quaternion: new CANNON.Quaternion(...this.linkedin.quaternion.toArray()),
+            linearDamping: 0.4,
+            angularDamping: 0.4,
+            sleepSpeedLimit: 0.05,
+            sleepTimeLimit: 0.5,
             material: this.physics.materials.socialMedia
         })
         this.physics.world.addBody(this.body)
+        this.physics.world.addEventListener('postStep', () => {
+            this.body.position.y = this.fixedY
+            this.body.velocity.y = 0
+        })
     }
 
     setRayCastListener(){
@@ -74,6 +84,9 @@ export default class Linkedin{
     }
 
     update(){
+        this.linkedin.position.copy(this.body.position)
+        this.linkedin.quaternion.copy(this.body.quaternion)
+
         if (this.isHovering) {
             this.onHover()
         }

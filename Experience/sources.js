@@ -28,6 +28,10 @@ export default [
         name: "instagram",
         type: 'gltfModel',
         path: '/gltf/Instagram/scene.gltf'
-
+    },
+    {
+        name: "lasersAlphaMap",
+        type: 'texture',
+        path: '/textures/lasers.png'
     }
 ]

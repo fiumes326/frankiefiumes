@@ -18,6 +18,9 @@ export default class Controls extends EventEmitter{
             } else if (event.code === 'KeyD' || event.code === 'ArrowRight') {
                 this.trigger('right')
             }
+            else if (event.code === 'Space'){
+                this.trigger('space')
+            }
         })
         window.addEventListener('keyup', (event) => {
             this.trigger('keyup', event)

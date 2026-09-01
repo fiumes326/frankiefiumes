@@ -37,7 +37,7 @@ export default class Instagram{
         this.center = this.bounds.getCenter(new THREE.Vector3())
         this.mesh.position.sub(this.center)
         this.instagram.add(this.mesh)
-        this.instagram.position.set(0, 0, -10) 
+        this.instagram.position.set(1, 1, -10) 
         this.instagram.scale.set(1.5, 1.5, 1.5)
         this.instagram.rotation.y = -Math.PI / 2
         this.instagram.rotation.x = -Math.PI / 4
@@ -46,13 +46,23 @@ export default class Instagram{
 
     setPhysics(){
         this.size = this.bounds.getSize(new THREE.Vector3()).multiplyScalar(1.5)
+        this.fixedY = this.instagram.position.y
         this.body = new CANNON.Body({
             mass: 1,
             shape: new CANNON.Box(new CANNON.Vec3(this.size.x / 2, this.size.y / 2, this.size.z / 2)),
             position: new CANNON.Vec3(...this.instagram.position),
+            quaternion: new CANNON.Quaternion(...this.instagram.quaternion.toArray()),
+            linearDamping: 0.4,
+            angularDamping: 0.4,
+            sleepSpeedLimit: 0.05,
+            sleepTimeLimit: 0.5,
             material: this.physics.materials.socialMedia
         })
         this.physics.world.addBody(this.body)
+        this.physics.world.addEventListener('postStep', () => {
+            this.body.position.y = this.fixedY
+            this.body.velocity.y = 0
+        })
     }
 
     setRayCastListener(){
@@ -76,6 +86,9 @@ export default class Instagram{
     }
 
     update(){
+        this.instagram.position.copy(this.body.position)
+        this.instagram.quaternion.copy(this.body.quaternion)
+
         if (this.isHovering) {
             this.onHover()
         }

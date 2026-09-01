@@ -36,6 +36,7 @@ export default class Experience extends EventEmitter{
         this.time = new Time()
         this.physics = new Physics()
         this.minimap = new Minimap()
+
         this.hud.on('start', () => {
             this.raycaster = new RayCaster()
         })

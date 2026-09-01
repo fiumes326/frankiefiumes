@@ -16,7 +16,8 @@ export default class Physics {
     setMaterials(){
         this.materials = {
             ship: new CANNON.Material('ship'),
-            socialMedia: new CANNON.Material('socialMedia')
+            socialMedia: new CANNON.Material('socialMedia'),
+            laser: new CANNON.Material('laser')
         }
     }
 
@@ -26,10 +27,19 @@ export default class Physics {
             this.materials.socialMedia,
             {
                 friction: 0.1,
-                restitution: 0.6
+                restitution: 0
+            }
+        )
+        this.laserSocialMediaContact = new CANNON.ContactMaterial(
+            this.materials.laser,
+            this.materials.socialMedia,
+            {
+                friction: 0.1,
+                restitution: 0
             }
         )
         this.world.addContactMaterial(this.shipSocialMediaContact)
+        this.world.addContactMaterial(this.laserSocialMediaContact)
     }
 
     update(){
