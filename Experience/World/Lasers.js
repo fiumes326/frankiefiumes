@@ -15,7 +15,7 @@ export default class Lasers {
         this.lasers = []
 
         this.totalLaserDistance = 8
-        this.speed = 3
+        this.speed = 8
         this.controls()
     }
 
@@ -46,14 +46,14 @@ export default class Lasers {
             direction.y * this.speed,
             direction.z * this.speed
         )
-        const geometry = new THREE.PlaneGeometry(0.45, 0.12)
+        const geometry = new THREE.PlaneGeometry(1, .25)
         const material = new THREE.MeshBasicMaterial({
             color: 0x64e9ff,
             map: this.resource.items.lasersAlphaMap,
             alphaMap: this.resource.items.lasersAlphaMap,
             transparent: true,
+            opacity: 1,
             depthWrite: false,
-            side: THREE.DoubleSide
         })
 
         const laser = new THREE.Mesh(geometry, material)
