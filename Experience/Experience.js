@@ -13,6 +13,7 @@ import Cursor from './Utils/Cursor'
 import RayCaster from './Utils/RayCaster'
 import HUD from './HUD.js'
 import Minimap from './Minimap.js'
+import Notification from './Utils/Notification.js'
 
 let instance = null
 export default class Experience extends EventEmitter{
@@ -36,9 +37,15 @@ export default class Experience extends EventEmitter{
         this.time = new Time()
         this.physics = new Physics()
         this.minimap = new Minimap()
+        this.notification = new Notification()
+
+       
 
         if (mobile){
             this.hud.showMobileControls()
+            this.notification.showNotification("Welcome to the game! Use the arrow keys to move and the button to shoot.")
+        }else{
+            this.notification.showNotification("Welcome to the game! Use the arrow keys or WASD to move and the spacebar to shoot.")
         }
 
         this.hud.on('start', () => {

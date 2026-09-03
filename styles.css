@@ -161,6 +161,76 @@ body
     z-index: 30;
 }
 
+#notification
+{
+    display: none;
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    width: min(360px, calc(100vw - 48px));
+    box-sizing: border-box;
+    padding: 16px 48px 16px 18px;
+    border: 1px solid rgba(180, 220, 255, 0.85);
+    border-left: 3px solid rgba(80, 210, 255, 0.95);
+    border-radius: 4px;
+    background:
+        linear-gradient(135deg, rgba(20, 42, 72, 0.96), rgba(5, 8, 22, 0.96));
+    box-shadow: 0 0 18px rgba(80, 170, 255, 0.4), inset 0 0 20px rgba(55, 190, 235, 0.08);
+    color: rgba(235, 250, 255, 0.95);
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: 0.04em;
+    z-index: 40;
+}
+
+#notification::before
+{
+    content: "TRANSMISSION";
+    display: block;
+    margin-bottom: 5px;
+    color: rgba(105, 220, 255, 0.9);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+}
+
+#notificationMessage
+{
+    display: block;
+    overflow-wrap: anywhere;
+}
+
+#closeNotification
+{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 26px;
+    height: 26px;
+    border: 1px solid rgba(180, 220, 255, 0.65);
+    border-radius: 3px;
+    background: rgba(10, 25, 48, 0.8);
+    color: rgba(235, 250, 255, 0.95);
+    cursor: pointer;
+    font-family: monospace;
+    font-size: 15px;
+    line-height: 1;
+}
+
+#closeNotification:hover,
+#closeNotification:focus-visible
+{
+    border-color: rgba(105, 220, 255, 0.95);
+    background: rgba(45, 105, 150, 0.9);
+    box-shadow: 0 0 10px rgba(80, 170, 255, 0.45);
+    outline: none;
+}
+
+#closeNotification:active
+{
+    transform: scale(0.92);
+}
+
 #mobileControls {
     width: 100vw;
     height: 25vh;
@@ -187,13 +257,13 @@ body
 
 #mobileControls svg:first-child
 {
-    width: min(42vw, 180px);
+    width: min(50vw, 180px);
     height: auto;
 }
 
 #mobileControls svg:last-child
 {
-    width: min(22vw, 100px);
+    width: min(30vw, 100px);
     height: auto;
 }
 

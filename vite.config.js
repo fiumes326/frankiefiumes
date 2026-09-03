@@ -1,5 +1,8 @@
 const { defineConfig } = require('vite')
 
 module.exports = defineConfig({
-    publicDir: 'static'
+    publicDir: 'static',
+    server: {
+        host: true,
+    }
 })
