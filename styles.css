@@ -161,6 +161,17 @@ body
     z-index: 30;
 }
 
+#mobileControls {
+    width: 100vw;
+    height: 25vh;
+    display: none;
+    align-items: center;
+    justify-content: space-around;
+    position: absolute;
+    top: 75vh;
+    z-index: 10;
+}
+
 @keyframes beam-sweep {
     from {
         left: 100%;

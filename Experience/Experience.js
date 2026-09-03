@@ -16,7 +16,7 @@ import Minimap from './Minimap.js'
 
 let instance = null
 export default class Experience extends EventEmitter{
-    constructor(canvas){
+    constructor(canvas, mobile){
         super()
         if(instance){
             return instance
@@ -36,6 +36,10 @@ export default class Experience extends EventEmitter{
         this.time = new Time()
         this.physics = new Physics()
         this.minimap = new Minimap()
+
+        if (mobile){
+            this.hud.showMobileControls()
+        }
 
         this.hud.on('start', () => {
             this.raycaster = new RayCaster()

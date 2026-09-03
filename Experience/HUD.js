@@ -9,7 +9,6 @@ export default class HUD extends EventEmitter{
         this.loading = document.getElementById("loading")
 
         this.showLoader()
-        
     }
 
     showLoader(){
@@ -37,6 +36,13 @@ export default class HUD extends EventEmitter{
         this.loading.appendChild(this.startButton)
     }
 
+
+    showMobileControls(){
+       this.mobileControls = document.getElementById("mobileControls") 
+       this.mobileControls.style.display = "flex"
+
+        this.experience.controls.setMobileEventListeners()
+    }
 
     update(){
 

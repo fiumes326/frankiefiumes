@@ -30,8 +30,18 @@ export default [
         path: '/gltf/Instagram/scene.gltf'
     },
     {
+        name: 'github',
+        type: 'gltfModel',
+        path: '/gltf/Github/scene.gltf'
+    },
+    {
         name: "lasersAlphaMap",
         type: 'texture',
         path: '/textures/lasers.png'
+    },
+    {
+        name: 'infoIcon',
+        type: 'texture',
+        path: '/icons/info.png'
     }
 ]

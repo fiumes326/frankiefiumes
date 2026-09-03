@@ -37,7 +37,7 @@ export default class Instagram{
         this.center = this.bounds.getCenter(new THREE.Vector3())
         this.mesh.position.sub(this.center)
         this.instagram.add(this.mesh)
-        this.instagram.position.set(1, 1, -10) 
+        this.instagram.position.set(0, 1, -10) 
         this.instagram.scale.set(1.5, 1.5, 1.5)
         this.instagram.rotation.y = -Math.PI / 2
         this.instagram.rotation.x = -Math.PI / 4
@@ -80,7 +80,7 @@ export default class Instagram{
 
     onHover(){
         if (!this.toolTipOpen){
-            this.cursor.showToolTip("Click to go to Instagram")
+            this.cursor.showToolTip("Click to go to my Instagram")
             this.toolTipOpen = true
         }
     }

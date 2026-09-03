@@ -2,7 +2,7 @@ import Experience from "../Experience";
 import * as THREE from 'three'
 import * as CANNON from 'cannon'
 
-export default class Linkedin{
+export default class Github{
     constructor(){
         this.experience = new Experience()
         this.resource = this.experience.resource
@@ -24,21 +24,21 @@ export default class Linkedin{
     setClickListener(){
         this.cursor.on('click', () => {
             if (this.isHovering) {
-                window.open('https://www.linkedin.com/in/frank-fiumefreddo-56549a34b/', '_blank', 'noopener,noreferrer')
+                window.open('https://fiumes326.github.io/', '_blank', 'noopener,noreferrer')
             }
         })
     }
 
     setMesh(){
-        this.linkedin = new THREE.Group()
-        this.mesh = this.resource.items.linkedin.scene
+        this.github = new THREE.Group()
+        this.mesh = this.resource.items.github.scene
         this.bounds = new THREE.Box3().setFromObject(this.mesh)
         this.center = this.bounds.getCenter(new THREE.Vector3())
         this.mesh.position.sub(this.center)
-        this.linkedin.add(this.mesh)
-        this.linkedin.position.set(-5, 1, -10) 
-        this.linkedin.scale.set(1.5, 1.5, 1.5)
-        this.linkedin.rotation.x = -Math.PI / 4
+        this.github.add(this.mesh)
+        this.github.position.set(5, 1, -10) 
+        this.github.scale.set(1.5, 1.5, 1.5)
+        this.github.rotation.x = -Math.PI / 4
         this.resource.items.infoIcon.colorSpace = THREE.SRGBColorSpace
         this.infoIcon = new THREE.Sprite(
             new THREE.SpriteMaterial({
@@ -49,18 +49,18 @@ export default class Linkedin{
         )
         this.infoIcon.position.y = this.bounds.getSize(new THREE.Vector3()).y / 2 + 0.4
         this.infoIcon.scale.set(.75, .75, 1)
-        this.linkedin.add(this.infoIcon)
-        this.scene.add(this.linkedin)
+        this.github.add(this.infoIcon)
+        this.scene.add(this.github)
     }
 
     setPhysics(){
         this.size = this.bounds.getSize(new THREE.Vector3()).multiplyScalar(1.5)
-        this.fixedY = this.linkedin.position.y
+        this.fixedY = this.github.position.y
         this.body = new CANNON.Body({
             mass: 1,
             shape: new CANNON.Box(new CANNON.Vec3(this.size.x / 2, this.size.y / 2, this.size.z / 2)),
-            position: new CANNON.Vec3(...this.linkedin.position),
-            quaternion: new CANNON.Quaternion(...this.linkedin.quaternion.toArray()),
+            position: new CANNON.Vec3(...this.github.position),
+            quaternion: new CANNON.Quaternion(...this.github.quaternion.toArray()),
             linearDamping: 0.4,
             angularDamping: 0.4,
             sleepSpeedLimit: 0.05,
@@ -79,7 +79,7 @@ export default class Linkedin{
             this.isHovering = intersects.some((intersect) => {
                 let object = intersect.object
                 while (object) {
-                    if (object === this.linkedin) return true
+                    if (object === this.github) return true
                     object = object.parent
                 }
                 return false
@@ -89,14 +89,14 @@ export default class Linkedin{
 
     onHover(){
         if (!this.toolTipOpen){
-            this.cursor.showToolTip("Click to go to my Linkedin")
+            this.cursor.showToolTip("Click to go to my Github")
             this.toolTipOpen = true
         }
     }
 
     update(){
-        this.linkedin.position.copy(this.body.position)
-        this.linkedin.quaternion.copy(this.body.quaternion)
+        this.github.position.copy(this.body.position)
+        this.github.quaternion.copy(this.body.quaternion)
 
         if (this.isHovering) {
             this.onHover()

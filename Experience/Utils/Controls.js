@@ -26,4 +26,19 @@ export default class Controls extends EventEmitter{
             this.trigger('keyup', event)
         })
     }
+
+    setMobileEventListeners(){
+        document.getElementById("mobileUp").addEventListener("click", () =>{
+            this.trigger("forward")
+        })
+        document.getElementById("mobileDown").addEventListener("click", () =>{
+            this.trigger("backward")
+        })
+        document.getElementById("mobileLeft").addEventListener("click", () =>{
+            this.trigger("left")
+        })
+        document.getElementById("mobileRight").addEventListener("click", () =>{
+            this.trigger("right")
+        })
+    }
 }

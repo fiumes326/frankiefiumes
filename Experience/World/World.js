@@ -7,6 +7,8 @@ import Moon from './Moon'
 import Linkedin from './Linkedin'
 import Instagram from './Instagram'
 import Lasers from './Lasers'
+import Github from './Github'
+import Border from './Border'
 
 export default class World {
     constructor() {
@@ -24,6 +26,8 @@ export default class World {
             this.moon = new Moon()
             this.linkedin = new Linkedin()
             this.instagram = new Instagram()
+            this.github = new Github()
+            this.border = new Border()
             this.scene.add(new THREE.AmbientLight(0x1c2d4a, 0.15))
             this.sunLight = new THREE.DirectionalLight(0xfff1cf, 3)
             this.sunLight.position.set(10, 12, 8)
@@ -39,5 +43,6 @@ export default class World {
         this?.moon?.update()
         this?.linkedin?.update()
         this?.instagram?.update()
+        this?.github?.update()
     }
 }
