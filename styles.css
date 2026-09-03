@@ -170,6 +170,64 @@ body
     position: absolute;
     top: 75vh;
     z-index: 10;
+    padding: 0 6vw;
+    box-sizing: border-box;
+    gap: 8vw;
+    pointer-events: none;
+}
+
+#mobileControls svg
+{
+    display: block;
+    flex: 0 1 auto;
+    overflow: visible;
+    pointer-events: auto;
+    touch-action: manipulation;
+}
+
+#mobileControls svg:first-child
+{
+    width: min(42vw, 180px);
+    height: auto;
+}
+
+#mobileControls svg:last-child
+{
+    width: min(22vw, 100px);
+    height: auto;
+}
+
+#mobileControls g
+{
+    cursor: pointer;
+    transition: opacity 120ms ease, transform 120ms ease;
+    transform-box: fill-box;
+    transform-origin: center;
+}
+
+#mobileControls g:hover
+{
+    opacity: 0.85;
+}
+
+#mobileControls g:active
+{
+    opacity: 0.65;
+    transform: scale(0.94);
+}
+
+#mobileControls rect,
+#mobileControls circle
+{
+    fill: rgba(55, 190, 235, 0.38);
+    stroke: rgba(190, 240, 255, 0.95);
+    filter: drop-shadow(0 0 5px rgba(55, 190, 235, 0.4));
+}
+
+#mobileControls polygon
+{
+    fill: rgba(235, 250, 255, 0.95);
+    filter: drop-shadow(0 0 3px rgba(190, 240, 255, 0.45));
 }
 
 @keyframes beam-sweep {

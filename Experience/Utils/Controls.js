@@ -28,17 +28,36 @@ export default class Controls extends EventEmitter{
     }
 
     setMobileEventListeners(){
-        document.getElementById("mobileUp").addEventListener("click", () =>{
+        document.getElementById("mobileUp").addEventListener("pointerdown", () =>{
             this.trigger("forward")
         })
-        document.getElementById("mobileDown").addEventListener("click", () =>{
+        document.getElementById("mobileDown").addEventListener("pointerdown", () =>{
             this.trigger("backward")
         })
-        document.getElementById("mobileLeft").addEventListener("click", () =>{
+        document.getElementById("mobileLeft").addEventListener("pointerdown", () =>{
             this.trigger("left")
         })
-        document.getElementById("mobileRight").addEventListener("click", () =>{
+        document.getElementById("mobileRight").addEventListener("pointerdown", () =>{
             this.trigger("right")
+        })
+        document.getElementById("mobileFire").addEventListener("pointerdown", () =>{
+            this.trigger("space")
+        })
+
+        document.getElementById("mobileUp").addEventListener("pointerup", () =>{
+            this.trigger("keyup", {code: "ArrowUp"})
+        })
+        document.getElementById("mobileDown").addEventListener("pointerup", () =>{
+            this.trigger("keyup", {code: "ArrowDown"})
+        })
+        document.getElementById("mobileLeft").addEventListener("pointerup", () =>{
+            this.trigger("keyup", {code: "ArrowLeft"})
+        })
+        document.getElementById("mobileRight").addEventListener("pointerup", () =>{
+            this.trigger("keyup", {code: "ArrowRight"})
+        })
+        document.getElementById("mobileFire").addEventListener("pointerup", () =>{
+            this.trigger("keyup", {code: "Space"})
         })
     }
 }
